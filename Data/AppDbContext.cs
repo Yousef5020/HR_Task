@@ -64,6 +64,96 @@ public class AppDbContext : DbContext
              .HasForeignKey(p => p.DepartmentId);
         });
 
+        modelBuilder.Entity<JobRank>(e =>
+        {
+            e.HasKey(r => r.Id);
+
+            e.Property(r => r.Name)
+             .IsRequired()
+             .HasMaxLength(50);
+
+            e.HasMany(r => r.Employees)
+             .WithOne(p => p.JobRank);
+
+            e.HasMany(r => r.Salaries)
+             .WithOne(s => s.JobRank);
+
+            e.HasData(new JobRank[] {
+                new JobRank
+                {
+                    Name = "First"
+                },
+                new JobRank
+                {
+                    Name = "Second"
+                },
+                new JobRank
+                {
+                    Name = "Third"
+                },
+            });
+        });
+
+        modelBuilder.Entity<Department>(e =>
+        {
+            e.HasKey(d => d.Id);
+
+            e.Property(d => d.Name)
+             .IsRequired()
+             .HasMaxLength(50);
+
+            e.HasMany(d => d.Employees)
+             .WithOne(p => p.Department);
+
+            e.HasMany(d => d.Salaries)
+             .WithOne(s => s.Department);
+        });
+
+        modelBuilder.Entity<Salary>(e =>
+        {
+            e.HasKey(s => s.Id);
+
+            e.HasOne(s => s.JobRank)
+             .WithMany(r => r.Salaries)
+             .HasForeignKey(s => s.JobRankId);
+
+            e.HasOne(s => s.Department)
+             .WithMany(r => r.Salaries)
+             .HasForeignKey(s => s.DepartmentId);
+        });
+
+        modelBuilder.Entity<BonusType>(e =>
+        {
+            e.HasKey(b => b.Id);
+
+            e.HasMany(b => b.Bonus)
+             .WithOne(b => b.BonusType);
+
+            e.HasData(new BonusType[]
+            {
+                new BonusType
+                {
+                    Name = "Department"
+                },
+                new BonusType
+                {
+                    Name = "Yearly"
+                },
+            });
+        });
+
+        modelBuilder.Entity<Bonus>(e =>
+        {
+            e.HasKey(b => b.Id);
+
+            e.HasIndex(e => new { e.TypeId, e.Role })
+             .IsUnique();
+
+            e.HasOne(b => b.BonusType)
+             .WithMany(b => b.Bonus)
+             .HasForeignKey(b => b.TypeId);
+        });
+
         base.OnModelCreating(modelBuilder);
     }
 }

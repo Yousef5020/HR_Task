@@ -4,21 +4,27 @@ public class Employee
 {
     public int Id { get; set; }
 
+    [Required]
+    [MaxLength(255)]
     public string FullName { get; set; } = null!;
 
     public DateOnly? BirthDate { get; set; }
 
+    [MaxLength(255)]
     public string Address { get; set; } = null!;
 
+    [MaxLength(20)]
     public string PhoneNumber { get; set; } = null!;
 
+    [MaxLength(50)]
     public string Mail { get; set; } = null!;
+
+    [Required]
+    public DateTime EmploymentDate { get; set; } = DateTime.Now;
 
     public int JobRankId { get; set; }
 
     public int DepartmentId { get; set; }
-
-    public DateTime EmploymentDate { get; set; }
 
     public JobRank JobRank { get; set; } = null!;
 

@@ -9,4 +9,6 @@ public class Bonus
     public decimal Rate { get; set; }
 
     public int Role { get; set; }
+
+    public BonusType BonusType { get; set; } = null!;
 }
