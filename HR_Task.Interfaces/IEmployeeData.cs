@@ -2,14 +2,14 @@
 {
     public interface IEmployeeData
     {
-        public Task<ICollection<Employee>> GetEmployees();
+        public Task<ICollection<Employee>> GetEmployees(CancellationToken token);
 
-        public Task<Employee> GetEmployee(int id);
+        public Task<Employee?> GetEmployee(int id, CancellationToken token);
 
-        public Task<Employee> AddEmployee(Employee employee);
+        public Task<Employee> AddEmployee(Employee employee, CancellationToken token);
 
-        public Task<Employee> UpdateEmployees(Employee updatedEmployee);
+        public Task<Employee?> UpdateEmployees(Employee updatedEmployee, CancellationToken token);
 
-        public Task<bool> DeleteEmployee(int id);
+        public Task<bool> DeleteEmployee(int id, CancellationToken token);
     }
 }
