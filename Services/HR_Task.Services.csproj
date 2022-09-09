@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Data\HR_Task.Data.csproj" />
-    <ProjectReference Include="..\HR_Task.Interfaces\HR_Task.Interfaces.csproj" />
+    <ProjectReference Include="..\Interfaces\HR_Task.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

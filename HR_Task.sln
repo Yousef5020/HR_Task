@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HR_Task.Models", "Models\HR
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HR_Task.Data", "Data\HR_Task.Data.csproj", "{4E8F2385-0071-4AAB-A86F-64BA4969D23D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HR_Task.Interfaces", "HR_Task.Interfaces\HR_Task.Interfaces.csproj", "{C65B800B-ABCD-49F8-9C32-2DF34E6B4FE9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HR_Task.Interfaces", "Interfaces\HR_Task.Interfaces.csproj", "{C65B800B-ABCD-49F8-9C32-2DF34E6B4FE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HR_Task.Services", "HR_Task.Services\HR_Task.Services.csproj", "{56336542-03CE-4BEB-8658-EA55F89846EC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HR_Task.Services", "Services\HR_Task.Services.csproj", "{56336542-03CE-4BEB-8658-EA55F89846EC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HR_Task.Domain", "Domain\HR_Task.Domain.csproj", "{38C7C68E-EDCD-46E5-B791-DA5723733E4E}"
 EndProject
