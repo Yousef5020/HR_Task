@@ -25,7 +25,7 @@ public class AppDbContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseSqlServer("");
+            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=HR_Task;Integrated Security=True;Connect Timeout=30;");
         }
 
         base.OnConfiguring(optionsBuilder);
@@ -57,7 +57,7 @@ public class AppDbContext : DbContext
 
             e.HasOne(p => p.JobRank)
              .WithMany(r => r.Employees)
-             .HasForeignKey(p => p.JobRank);
+             .HasForeignKey(p => p.JobRankId);
 
             e.HasOne(p => p.Department)
              .WithMany(d => d.Employees)
@@ -81,14 +81,17 @@ public class AppDbContext : DbContext
             e.HasData(new JobRank[] {
                 new JobRank
                 {
+                    Id = 1,
                     Name = "First"
                 },
                 new JobRank
                 {
+                    Id = 2,
                     Name = "Second"
                 },
                 new JobRank
                 {
+                    Id = 3,
                     Name = "Third"
                 },
             });
@@ -133,10 +136,12 @@ public class AppDbContext : DbContext
             {
                 new BonusType
                 {
+                    Id = 1,
                     Name = "Department"
                 },
                 new BonusType
                 {
+                    Id = 2,
                     Name = "Yearly"
                 },
             });

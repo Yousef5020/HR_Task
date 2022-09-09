@@ -8,7 +8,7 @@ public class Employee
     [MaxLength(255)]
     public string FullName { get; set; } = null!;
 
-    public DateOnly? BirthDate { get; set; }
+    public DateTime? BirthDate { get; set; }
 
     [MaxLength(255)]
     public string Address { get; set; } = null!;

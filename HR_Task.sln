@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HR_Task.Interfaces", "HR_Ta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HR_Task.Services", "HR_Task.Services\HR_Task.Services.csproj", "{56336542-03CE-4BEB-8658-EA55F89846EC}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HR_Task.Domain", "Domain\HR_Task.Domain.csproj", "{38C7C68E-EDCD-46E5-B791-DA5723733E4E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{56336542-03CE-4BEB-8658-EA55F89846EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56336542-03CE-4BEB-8658-EA55F89846EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56336542-03CE-4BEB-8658-EA55F89846EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38C7C68E-EDCD-46E5-B791-DA5723733E4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38C7C68E-EDCD-46E5-B791-DA5723733E4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38C7C68E-EDCD-46E5-B791-DA5723733E4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38C7C68E-EDCD-46E5-B791-DA5723733E4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
