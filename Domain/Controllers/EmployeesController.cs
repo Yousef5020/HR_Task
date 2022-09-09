@@ -58,7 +58,7 @@ namespace HR_Task.Domain.Controllers
             if (ModelState.IsValid)
             {
                 var newEmployee = await _employeeData.AddEmployee(employee, cancellation);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), new { id = newEmployee.Id });
             }
             ViewData["DepartmentId"] = new SelectList(await _departmentData.GetDepartments(cancellation), "Id", "Name", employee.DepartmentId);
             ViewData["JobRankId"] = new SelectList(await _jobRankData.GetJobRanks(cancellation), "Id", "Name", employee.JobRankId);
