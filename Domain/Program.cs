@@ -10,6 +10,7 @@ builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddScoped<IEmployeeData, HR_Task.Services.EmployeeData>();
 builder.Services.AddScoped<IDepartmentData, HR_Task.Services.DepartmentData>();
 builder.Services.AddScoped<IJobRankData, HR_Task.Services.JobRankData>();
+builder.Services.AddScoped<ISalaryData, HR_Task.Services.SalaryData>();
 
 var app = builder.Build();
 
