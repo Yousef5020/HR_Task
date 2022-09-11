@@ -159,6 +159,9 @@ public class AppDbContext : DbContext
              .HasForeignKey(b => b.TypeId);
         });
 
+        modelBuilder.Entity<Bonus>().Ignore(b => b.RoleDescreption);
+        modelBuilder.Entity<Bonus>().Ignore(b => b.RoleDepartment);
+
         base.OnModelCreating(modelBuilder);
     }
 }

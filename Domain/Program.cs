@@ -11,6 +11,7 @@ builder.Services.AddScoped<IEmployeeData, HR_Task.Services.EmployeeData>();
 builder.Services.AddScoped<IDepartmentData, HR_Task.Services.DepartmentData>();
 builder.Services.AddScoped<IJobRankData, HR_Task.Services.JobRankData>();
 builder.Services.AddScoped<ISalaryData, HR_Task.Services.SalaryData>();
+builder.Services.AddScoped<IBonusData, HR_Task.Services.BonusData>();
 
 var app = builder.Build();
 

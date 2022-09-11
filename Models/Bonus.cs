@@ -10,5 +10,9 @@ public class Bonus
 
     public int Role { get; set; }
 
+    public int RoleDepartment { get; set; }
+
+    public string RoleDescreption { get; set; } = null!;
+
     public BonusType BonusType { get; set; } = null!;
 }
