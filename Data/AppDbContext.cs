@@ -20,6 +20,9 @@ public class AppDbContext : DbContext
 
     public DbSet<Salary> Salaries { get; set; } = null!;
 
+    public DbSet<AttendanceRole> AttendanceRoles { get; set; } = null!;
+
+
 #if DEBUG
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -161,6 +164,17 @@ public class AppDbContext : DbContext
 
         modelBuilder.Entity<Bonus>().Ignore(b => b.RoleDescreption);
         modelBuilder.Entity<Bonus>().Ignore(b => b.RoleDepartment);
+
+        modelBuilder.Entity<AttendanceRole>(a =>
+        {
+            a.HasKey(b => b.Id);
+
+            a.Property(a => a.MaxAbsenceDays).IsRequired();
+
+            a.Property(a => a.MinAbsenceDays).IsRequired();
+
+            a.Property(a => a.Rate).IsRequired();
+        });
 
         base.OnModelCreating(modelBuilder);
     }
