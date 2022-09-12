@@ -21,6 +21,8 @@ public class AppDbContext : DbContext
     public DbSet<Salary> Salaries { get; set; } = null!;
 
     public DbSet<AttendanceRole> AttendanceRoles { get; set; } = null!;
+    
+    public DbSet<Absence> Absences { get; set; } = null!;
 
 
 #if DEBUG
@@ -174,6 +176,17 @@ public class AppDbContext : DbContext
             a.Property(a => a.MinAbsenceDays).IsRequired();
 
             a.Property(a => a.Rate).IsRequired();
+        });
+
+        modelBuilder.Entity<Absence>(a =>
+        {
+            a.HasKey(b => b.Id);
+
+            a.HasOne(a => a.employee)
+             .WithMany(e => e.Absences)
+             .HasForeignKey(a => a.EmployeeId);
+
+            a.Property(a => a.AbsenceDay).IsRequired();
         });
 
         base.OnModelCreating(modelBuilder);

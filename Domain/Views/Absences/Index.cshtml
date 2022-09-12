@@ -1,0 +1,41 @@
+﻿@model IEnumerable<HR_Task.Models.Absence>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Absences</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AbsenceDay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.employee)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AbsenceDay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.employee.FullName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
