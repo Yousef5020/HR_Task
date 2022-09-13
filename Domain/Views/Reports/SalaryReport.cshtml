@@ -55,10 +55,13 @@
                     @Html.DisplayFor(modelItem => item.BasicSalary)
                 </td>
                 <td>
-                    @(Math.Round(item.DepartmentBonusAmount + item.YearlyBonusAmount, 2))
+                    @(
+                        Math.Round(item.DepartmentBonusAmount +
+                        item.YearlyBonusAmount + (item.AbsenceRateAmount < 0 ? item.AbsenceRateAmount : 0), 2)
+                    )
                 </td>
                 <td>
-                    @Math.Round(item.AbsenceRateAmount,2)
+                    @(Math.Round(item.AbsenceRateAmount < 0 ? item.AbsenceRateAmount : 0, 2))
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.NetSalary)
