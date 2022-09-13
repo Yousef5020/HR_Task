@@ -1,12 +1,13 @@
 global using HR_Task.Interfaces;
 using HR_Task.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<AppDbContext>();
+builder.Services.AddDbContext<AppDbContext>(op => op.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnectionString")));
 builder.Services.AddScoped<IEmployeeData, HR_Task.Services.EmployeeData>();
 builder.Services.AddScoped<IDepartmentData, HR_Task.Services.DepartmentData>();
 builder.Services.AddScoped<IJobRankData, HR_Task.Services.JobRankData>();
