@@ -29,6 +29,6 @@ public class Employee
     public JobRank JobRank { get; set; } = null!;
 
     public Department Department { get; set; } = null!;
-    
+
     public ICollection<Absence> Absences { get; set; } = null!;
 }

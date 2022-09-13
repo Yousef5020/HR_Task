@@ -67,6 +67,10 @@ public class AppDbContext : DbContext
             e.HasOne(p => p.Department)
              .WithMany(d => d.Employees)
              .HasForeignKey(p => p.DepartmentId);
+
+            e.HasMany(p => p.Absences)
+             .WithOne(d => d.employee)
+             .IsRequired(false);
         });
 
         modelBuilder.Entity<JobRank>(e =>

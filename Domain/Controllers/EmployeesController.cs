@@ -54,6 +54,7 @@ namespace HR_Task.Domain.Controllers
         {
             ModelState.Remove("Department");
             ModelState.Remove("JobRank");
+            ModelState.Remove("Absences");
 
             if (ModelState.IsValid)
             {
@@ -89,6 +90,7 @@ namespace HR_Task.Domain.Controllers
         {
             ModelState.Remove("Department");
             ModelState.Remove("JobRank");
+            ModelState.Remove("Absences");
 
             if (ModelState.IsValid)
             {

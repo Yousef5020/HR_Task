@@ -1,0 +1,76 @@
+﻿@model IEnumerable<HR_Task.Models.Reporting.EmployeesSalary>
+
+@{
+    ViewData["Title"] = "SalaryReport";
+}
+
+<h1>Salary Report</h1>
+<form asp-action="SalaryReport" method="get">
+    <div class="form-group">
+        <label id="fromDate" class="control-label"></label>
+        <input for="fromDate" id="fromDate" name="fromDate" value="now" type="date" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label id="toDate" class="control-label"></label>
+        <input for="fromDate" id="toDate" name="toDate" type="date" value="now" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Search" class="btn btn-primary" />
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartmentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JobRankName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BasicSalary)
+            </th>
+            <th>
+                Total Bonuses
+            </th>
+            <th>
+                Total Deductions
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NetSalary)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartmentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JobRankName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BasicSalary)
+                </td>
+                <td>
+                    @(Math.Round(item.DepartmentBonusAmount + item.YearlyBonusAmount, 2))
+                </td>
+                <td>
+                    @Math.Round(item.AbsenceRateAmount,2)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NetSalary)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="/js/reports.js"></script>
+}

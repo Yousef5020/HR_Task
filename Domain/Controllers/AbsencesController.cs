@@ -3,36 +3,36 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HR_Task.Data;
 using HR_Task.Models;
+using NuGet.Common;
 
 namespace HR_Task.Domain.Controllers
 {
     public class AbsencesController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly IAbsenceData _absenceData;
+        private readonly IEmployeeData _employeeData;
 
-        public AbsencesController(AppDbContext context)
+        public AbsencesController(IAbsenceData absenceData,
+            IEmployeeData employeeData)
         {
-            _context = context;
+            _absenceData = absenceData;
+            _employeeData = employeeData;
         }
 
-        // GET: Absences
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(CancellationToken token)
         {
-            var appDbContext = _context.Absences.Include(a => a.employee);
-            return View(await appDbContext.ToListAsync());
+            return View(await _absenceData.GetAbsences(token));
         }
 
-        // GET: Absences/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, CancellationToken token)
         {
-            if (id == null || _context.Absences == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var absence = await _context.Absences
-                .Include(a => a.employee)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var absence = await _absenceData.GetAbsence(id.Value, token);
+
             if (absence == null)
             {
                 return NotFound();
@@ -41,124 +41,61 @@ namespace HR_Task.Domain.Controllers
             return View(absence);
         }
 
-        // GET: Absences/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create(CancellationToken token)
         {
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName");
+            ViewData["EmployeeId"] = new SelectList(await _employeeData.GetEmployees(token), "Id", "FullName");
             return View();
         }
 
-        // POST: Absences/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,EmployeeId,AbsenceDay")] Absence absence)
+        public async Task<IActionResult> Create([Bind("Id,EmployeeId,AbsenceDay")] Absence absence, CancellationToken token)
         {
+            ModelState.Remove("employee");
+
             if (ModelState.IsValid)
             {
-                _context.Add(absence);
-                await _context.SaveChangesAsync();
+                await _absenceData.AddAbsence(absence, token);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", absence.EmployeeId);
+            ViewData["EmployeeId"] = new SelectList(await _employeeData.GetEmployees(token), "Id", "FullName");
             return View(absence);
         }
 
         // GET: Absences/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, CancellationToken token)
         {
-            if (id == null || _context.Absences == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var absence = await _context.Absences.FindAsync(id);
+            var absence = await _absenceData.GetAbsence(id.Value, token);
             if (absence == null)
             {
                 return NotFound();
             }
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", absence.EmployeeId);
+            ViewData["EmployeeId"] = new SelectList(await _employeeData.GetEmployees(token), "Id", "FullName");
             return View(absence);
         }
 
-        // POST: Absences/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,EmployeeId,AbsenceDay")] Absence absence)
+        public async Task<IActionResult> Edit([Bind("Id,EmployeeId,AbsenceDay")] Absence absence, CancellationToken token)
         {
-            if (id != absence.Id)
-            {
-                return NotFound();
-            }
+            ModelState.Remove("employee");
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(absence);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AbsenceExists(absence.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                var updatedU = await _absenceData.UpdateAbsences(absence, token);
+
+                if (updatedU == null) return NotFound();
+
+                return RedirectToAction(nameof(Details), new { id = updatedU.Id });
             }
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", absence.EmployeeId);
+            ViewData["EmployeeId"] = new SelectList(await _employeeData.GetEmployees(token), "Id", "FullName");
             return View(absence);
         }
 
-        // GET: Absences/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.Absences == null)
-            {
-                return NotFound();
-            }
-
-            var absence = await _context.Absences
-                .Include(a => a.employee)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (absence == null)
-            {
-                return NotFound();
-            }
-
-            return View(absence);
-        }
-
-        // POST: Absences/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.Absences == null)
-            {
-                return Problem("Entity set 'AppDbContext.Absences'  is null.");
-            }
-            var absence = await _context.Absences.FindAsync(id);
-            if (absence != null)
-            {
-                _context.Absences.Remove(absence);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool AbsenceExists(int id)
-        {
-          return (_context.Absences?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
     }
 }
