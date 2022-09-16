@@ -22,6 +22,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.DepartmentName)
             </th>
             <th>
@@ -46,6 +49,9 @@
         {
             <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.DepartmentName)
                 </td>
                 <td>
@@ -57,11 +63,11 @@
                 <td>
                     @(
                         Math.Round(item.DepartmentBonusAmount +
-                        item.YearlyBonusAmount + (item.AbsenceRateAmount < 0 ? item.AbsenceRateAmount : 0), 2)
+                        item.YearlyBonusAmount + (item.AbsenceRateAmount > 0 ? item.AbsenceRateAmount : 0), 2)
                     )
                 </td>
                 <td>
-                    @(Math.Round(item.AbsenceRateAmount < 0 ? item.AbsenceRateAmount : 0, 2))
+                    @(Math.Round(item.AbsenceRateAmount < 0 ? Math.Abs(item.AbsenceRateAmount) : 0, 2))
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.NetSalary)
