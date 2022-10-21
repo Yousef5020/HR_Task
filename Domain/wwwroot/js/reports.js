@@ -1,5 +1,7 @@
-﻿
-$(document).ready(function () {
-    $("#fromDate").val(new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().slice(0, 10));
-    $('#toDate').val(new Date().toDateInputValue());
-});​
+﻿$(document).ready(function () {
+  const year = new Date().getFullYear();
+  const month = new Date().getMonth() + 1;
+  const day =new Date().getDate();
+  $('#fromDate').val(`${year}-${month}-01`);
+  $('#toDate').val(`${year}-${month}-${day}`);
+});

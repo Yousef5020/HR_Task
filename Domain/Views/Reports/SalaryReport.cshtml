@@ -7,12 +7,12 @@
 <h1>Salary Report</h1>
 <form asp-action="SalaryReport" method="get">
     <div class="form-group">
-        <label id="fromDate" class="control-label"></label>
-        <input for="fromDate" id="fromDate" name="fromDate" value="now" type="date" class="form-control" />
+        <label for="fromDate" class="control-label"></label>
+        <input id="fromDate" name="fromDate" type="date" class="form-control" />
     </div>
     <div class="form-group">
-        <label id="toDate" class="control-label"></label>
-        <input for="fromDate" id="toDate" name="toDate" type="date" value="now" class="form-control" />
+        <label for="toDate" class="control-label"></label>
+        <input id="toDate" name="toDate" type="date" class="form-control" />
     </div>
     <div class="form-group">
         <input type="submit" value="Search" class="btn btn-primary" />
